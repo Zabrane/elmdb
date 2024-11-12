@@ -172,6 +172,7 @@ static ERL_NIF_TERM ATOM_ELMDB;
 static ERL_NIF_TERM ATOM_FIXEDMAP;
 static ERL_NIF_TERM ATOM_NOSUBDIR;
 static ERL_NIF_TERM ATOM_RDONLY;
+static ERL_NIF_TERM ATOM_NOLOCK;
 static ERL_NIF_TERM ATOM_WRITEMAP;
 static ERL_NIF_TERM ATOM_NOMETASYNC;
 static ERL_NIF_TERM ATOM_NOSYNC;
@@ -668,8 +669,10 @@ static int get_env_open_opts(ErlNifEnv *env, ERL_NIF_TERM opts, uint64_t *mapsiz
         _flags = _flags | MDB_FIXEDMAP;
       if(enif_is_identical(head, ATOM_NOSUBDIR) != 0)
         _flags = _flags | MDB_NOSUBDIR;
-      if(enif_is_identical(head, ATOM_RDONLY) != 0)
+      if(enif_is_identical(head, ATOM_RDONLY) != 0) 
         _flags = _flags | MDB_RDONLY;
+      if(enif_is_identical(head, ATOM_NOLOCK) != 0) 
+        _flags = _flags | MDB_NOLOCK;
       if(enif_is_identical(head, ATOM_WRITEMAP) != 0)
         _flags = _flags | MDB_WRITEMAP;
       if(enif_is_identical(head, ATOM_NOMETASYNC) != 0)
@@ -687,7 +690,7 @@ static int get_env_open_opts(ErlNifEnv *env, ERL_NIF_TERM opts, uint64_t *mapsiz
       if(tup_arity == 2) {
 
         if(enif_is_identical(tup_array[0], ATOM_MAPSIZE) != 0 &&
-           enif_get_uint64(env, tup_array[1], (ErlNifUInt64*)&_mapsize) == 0)
+           enif_get_uint64(env, tup_array[1], (ErlNifUInt64*) &_mapsize) == 0)
           return 0;
 
         if(enif_is_identical(tup_array[0], ATOM_MAXDBS) != 0 &&
@@ -2310,6 +2313,7 @@ static int elmdb_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
   ATOM_FIXEDMAP = enif_make_atom(env, "fixed_map");
   ATOM_NOSUBDIR = enif_make_atom(env, "no_subdir");
   ATOM_RDONLY = enif_make_atom(env, "read_only");
+  ATOM_NOLOCK = enif_make_atom(env, "no_lock");
   ATOM_WRITEMAP = enif_make_atom(env, "write_map");
   ATOM_NOMETASYNC = enif_make_atom(env, "no_meta_sync");
   ATOM_NOSYNC = enif_make_atom(env, "no_sync");
