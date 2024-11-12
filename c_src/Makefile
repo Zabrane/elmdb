@@ -17,19 +17,19 @@ C_SRC_OUTPUT ?= $(CURDIR)/../priv/$(PROJECT).so
 
 UNAME_SYS := $(shell uname -s)
 ifeq ($(UNAME_SYS), Darwin)
-	CC ?= cc
-	CFLAGS ?= -O3 -std=c99 -flto -DNDEBUG -finline-functions -Wall -Wmissing-prototypes
-	CXXFLAGS ?= -O3 -DNDEBUG -finline-functions -Wall
-	LDFLAGS ?=
-	LDFLAGS += -flat_namespace -undefined suppress
+    CC := cc
+    CFLAGS := -O3 -std=c99 -flto -DNDEBUG -finline-functions -Wall -Wmissing-prototypes
+    CXXFLAGS := -O3 -DNDEBUG -finline-functions -Wall
+    LDFLAGS :=
+    LDFLAGS += -flat_namespace -undefined suppress
 else ifeq ($(UNAME_SYS), FreeBSD)
-	CC ?= cc
-	CFLAGS ?= -O3 -std=c99 -flto -DNDEBUG -finline-functions -Wall -Wmissing-prototypes
-	CXXFLAGS ?= -O3 -DNDEBUG -finline-functions -Wall
+    CC := cc
+    CFLAGS := -O3 -std=c99 -flto -DNDEBUG -finline-functions -Wall -Wmissing-prototypes
+    CXXFLAGS := -O3 -DNDEBUG -finline-functions -Wall
 else ifeq ($(UNAME_SYS), Linux)
-	CC ?= gcc
-	CFLAGS ?= -O3 -std=c99 -flto -DNDEBUG -finline-functions -Wall -Wmissing-prototypes
-	CXXFLAGS ?= -O3 -flto -DNDEBUG -finline-functions -Wall
+    CC := gcc
+    CFLAGS := -O3 -std=c99 -flto -DNDEBUG -finline-functions -Wall -Wmissing-prototypes
+    CXXFLAGS := -O3 -flto -DNDEBUG -finline-functions -Wall
 endif
 
 CFLAGS += -fPIC -I $(ERTS_INCLUDE_DIR) -I $(ERL_INTERFACE_INCLUDE_DIR)
