@@ -663,43 +663,41 @@ static int get_env_open_opts(ErlNifEnv *env, ERL_NIF_TERM opts, uint64_t *mapsiz
 
   while(enif_get_list_cell(env, opts, &head, &tail)) {
     opts = tail;
-
     if(enif_is_atom(env, head) != 0) {
       if(enif_is_identical(head, ATOM_FIXEDMAP) != 0)
         _flags = _flags | MDB_FIXEDMAP;
-      if(enif_is_identical(head, ATOM_NOSUBDIR) != 0)
+      else if(enif_is_identical(head, ATOM_NOSUBDIR) != 0)
         _flags = _flags | MDB_NOSUBDIR;
-      if(enif_is_identical(head, ATOM_RDONLY) != 0) 
+      else if(enif_is_identical(head, ATOM_RDONLY) != 0) 
         _flags = _flags | MDB_RDONLY;
-      if(enif_is_identical(head, ATOM_NOLOCK) != 0) 
+      else if(enif_is_identical(head, ATOM_NOLOCK) != 0) 
         _flags = _flags | MDB_NOLOCK;
-      if(enif_is_identical(head, ATOM_WRITEMAP) != 0)
+      else if(enif_is_identical(head, ATOM_WRITEMAP) != 0)
         _flags = _flags | MDB_WRITEMAP;
-      if(enif_is_identical(head, ATOM_NOMETASYNC) != 0)
+      else if(enif_is_identical(head, ATOM_NOMETASYNC) != 0)
         _flags = _flags | MDB_NOMETASYNC;
-      if(enif_is_identical(head, ATOM_NOSYNC) != 0)
+      else if(enif_is_identical(head, ATOM_NOSYNC) != 0)
         _flags = _flags | MDB_NOSYNC;
-      if(enif_is_identical(head, ATOM_MAPASYNC) != 0)
+      else if(enif_is_identical(head, ATOM_MAPASYNC) != 0)
         _flags = _flags | MDB_MAPASYNC;
-      if(enif_is_identical(head, ATOM_NORDAHEAD) != 0)
+      else if(enif_is_identical(head, ATOM_NORDAHEAD) != 0)
         _flags = _flags | MDB_NORDAHEAD;
-      if(enif_is_identical(head, ATOM_NOMEMINIT) != 0)
+      else if(enif_is_identical(head, ATOM_NOMEMINIT) != 0)
         _flags = _flags | MDB_NOMEMINIT;
     }
     else if(enif_get_tuple(env, head, &tup_arity, &tup_array) != 0) {
       if(tup_arity == 2) {
-
         if(enif_is_identical(tup_array[0], ATOM_MAPSIZE) != 0 &&
            enif_get_uint64(env, tup_array[1], (ErlNifUInt64*) &_mapsize) == 0)
           return 0;
-
-        if(enif_is_identical(tup_array[0], ATOM_MAXDBS) != 0 &&
+        else if(enif_is_identical(tup_array[0], ATOM_MAXDBS) != 0 &&
            enif_get_uint(env, tup_array[1], &_maxdbs) == 0)
           return 0;
       } else return 0;
     }
     else return 0;
   }
+
   *mapsize = _mapsize;
   *maxdbs = _maxdbs;
   *flags = _flags;
