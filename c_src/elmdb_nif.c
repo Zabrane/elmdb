@@ -665,25 +665,25 @@ static int get_env_open_opts(ErlNifEnv *env, ERL_NIF_TERM opts, uint64_t *mapsiz
     opts = tail;
     if(enif_is_atom(env, head) != 0) {
       if(enif_is_identical(head, ATOM_FIXEDMAP) != 0)
-        _flags = _flags | MDB_FIXEDMAP;
+        _flags |= MDB_FIXEDMAP;
       else if(enif_is_identical(head, ATOM_NOSUBDIR) != 0)
-        _flags = _flags | MDB_NOSUBDIR;
+        _flags |= MDB_NOSUBDIR;
       else if(enif_is_identical(head, ATOM_RDONLY) != 0) 
-        _flags = _flags | MDB_RDONLY;
+        _flags |= MDB_RDONLY;
       else if(enif_is_identical(head, ATOM_NOLOCK) != 0) 
-        _flags = _flags | MDB_NOLOCK;
+        _flags |= MDB_NOLOCK;
       else if(enif_is_identical(head, ATOM_WRITEMAP) != 0)
-        _flags = _flags | MDB_WRITEMAP;
+        _flags |= MDB_WRITEMAP;
       else if(enif_is_identical(head, ATOM_NOMETASYNC) != 0)
-        _flags = _flags | MDB_NOMETASYNC;
+        _flags |= MDB_NOMETASYNC;
       else if(enif_is_identical(head, ATOM_NOSYNC) != 0)
-        _flags = _flags | MDB_NOSYNC;
+        _flags |= MDB_NOSYNC;
       else if(enif_is_identical(head, ATOM_MAPASYNC) != 0)
-        _flags = _flags | MDB_MAPASYNC;
+        _flags |= MDB_MAPASYNC;
       else if(enif_is_identical(head, ATOM_NORDAHEAD) != 0)
-        _flags = _flags | MDB_NORDAHEAD;
+        _flags |= MDB_NORDAHEAD;
       else if(enif_is_identical(head, ATOM_NOMEMINIT) != 0)
-        _flags = _flags | MDB_NOMEMINIT;
+        _flags |= MDB_NOMEMINIT;
     }
     else if(enif_get_tuple(env, head, &tup_arity, &tup_array) != 0) {
       if(tup_arity == 2) {
@@ -713,13 +713,13 @@ static int get_db_open_opts(ErlNifEnv *env, ERL_NIF_TERM opts, unsigned int *fla
 
     if(enif_is_atom(env, head) != 0) {
       if(enif_is_identical(head, ATOM_REVERSEKEY) != 0)
-        _flags = _flags | MDB_REVERSEKEY;
-      if(enif_is_identical(head, ATOM_DUPSORT) != 0)
-        _flags = _flags | MDB_DUPSORT;
-      if(enif_is_identical(head, ATOM_REVERSEDUP) != 0)
-        _flags = _flags | MDB_REVERSEDUP;
-      if(enif_is_identical(head, ATOM_CREATE) != 0)
-        _flags = _flags | MDB_CREATE;
+        _flags |= MDB_REVERSEKEY;
+      else if(enif_is_identical(head, ATOM_DUPSORT) != 0)
+        _flags |= MDB_DUPSORT;
+      else if(enif_is_identical(head, ATOM_REVERSEDUP) != 0)
+        _flags |= MDB_REVERSEDUP;
+      else if(enif_is_identical(head, ATOM_CREATE) != 0)
+        _flags |= MDB_CREATE;
     }
     else {
       return 0;
